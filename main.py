@@ -1,6 +1,5 @@
 import time
-
-from board import Board
+from rookpoly import Board
 
 
 def main():

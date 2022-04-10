@@ -1,6 +1,7 @@
+import collections.abc
 import random
 
-from polynomial import Polynomial
+from rookpoly.polynomial import Polynomial
 
 
 class Board:
@@ -93,7 +94,7 @@ class Board:
             if self.is_valid_cut_column(i):
                 yield i
 
-    def get_most_efficient_row_cut(self):
+    def get_efficient_row_cut(self):
         best_minimum_count = None
         best_row = None
         for i in self.get_cuttable_rows():
@@ -104,7 +105,7 @@ class Board:
                 best_row = i
         return best_row, best_minimum_count
 
-    def get_most_efficient_column_cut(self):
+    def get_efficient_column_cut(self):
         best_minimum_count = None
         best_column = None
         for i in self.get_cuttable_columns():
@@ -116,8 +117,8 @@ class Board:
         return best_column, best_minimum_count
 
     def get_most_efficient_cut(self):
-        best_row, row_value = self.get_most_efficient_row_cut()
-        best_column, column_value = self.get_most_efficient_column_cut()
+        best_row, row_value = self.get_efficient_row_cut()
+        best_column, column_value = self.get_efficient_column_cut()
         n = len(self.board)
         m = len(self.board[0])
         if best_column is None:
@@ -148,5 +149,15 @@ class Board:
 
             return Polynomial(0, 1) * e.get_poly() + s.get_poly()
 
+    def get_str_board(self):
+        return [''.join(row) for row in self.board]
+
+    def __eq__(self, other):
+        if isinstance(other, Board):
+            return self.board == other.board
+        if isinstance(other, collections.abc.Iterable):
+            return self.board == [list(row) for row in other]
+        return False
+
     def __str__(self):
-        return 'Board:\n' + '\n'.join([''.join(row) for row in self.board])
+        return 'Board:\n' + '\n'.join(self.get_str_board())
