@@ -15,7 +15,12 @@ $ cd RookPoly
 
 ## Usage
 
-For example for a board like this:
+Run the main program:
+```shell
+$ python3 main.py
+```
+
+For example, for a board like this:
 
 <img alt="Sample Board" height="150" src="https://github.com/itsamirhn/RookPoly/blob/master/sample.png?raw=true" width="150"/>
 
