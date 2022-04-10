@@ -2,12 +2,12 @@
 
 Simple recursive tool for finding [Rook Polynomial](https://en.m.wikipedia.org/wiki/Rook_polynomial)
 
-Be aware that recursion is not efficient enough, and it's using random choices. So maybe it's slow for large numbers.
+Be aware that recursion is not efficient enough, and it's using random choices. So maybe it gets slow for large numbers.
 
 ## Install
 Just clone the project:
 
-```bash
+```shell
 $ git clone git@github.com:itsamirhn/RookPoly.git
 
 $ cd RookPoly
@@ -21,7 +21,7 @@ For example for a board like this:
 
 Use the following input to find the rook polynomial:
 
-```bash
+```shell
 Enter numberEnter number of rows: 5
 
 00001
@@ -30,5 +30,10 @@ Enter numberEnter number of rows: 5
 10010
 00000
 ```
-* `0: Rook can be placed in this place`
-* `1: Rook can't be placed here`
+* `0`: Rook can be placed in this place
+* `1`: Rook can't be placed here
+
+Sample output for this example:
+```
+24X^5 + 164X^4 + 226X^3 + 104X^2 + 18X + 1
+```
