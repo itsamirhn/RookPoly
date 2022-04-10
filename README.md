@@ -2,7 +2,7 @@
 
 Simple recursive tool for finding [Rook Polynomial](https://en.m.wikipedia.org/wiki/Rook_polynomial)
 
-Be aware that recursion is not efficient enough, and it's using random choices
+Be aware that recursion is not efficient enough, and it's using random choices. So maybe it's slow for large numbers.
 
 ## Install
 Just clone the project:
