@@ -17,7 +17,7 @@ $ cd RookPoly
 
 For example for a board like this:
 
-<img alt="Sample Board" height="100" src="https://github.com/itsamirhn/RookPoly/blob/master/sample.png?raw=true" width="150" height="150"/>
+<img alt="Sample Board" height="150" src="https://github.com/itsamirhn/RookPoly/blob/master/sample.png?raw=true" width="150"/>
 
 Use the following input to find the rook polynomial:
 
