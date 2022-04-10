@@ -4,7 +4,7 @@ from board import Board
 
 
 def main():
-    n = int(input())
+    n = int(input("Enter number of rows: "))
     board = []
     for i in range(n):
         board.append(input().rstrip())
