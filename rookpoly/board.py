@@ -8,7 +8,7 @@ class Board:
 
     def __init__(self, board):
         self.rotated_times = 0
-        self.board = board[:]
+        self.board = [list(row) for row in board]
 
     def flip(self):
         self.board = [list(reversed(row)) for row in self.board]
@@ -116,7 +116,7 @@ class Board:
                 best_column = i
         return best_column, best_minimum_count
 
-    def get_most_efficient_cut(self):
+    def get_efficient_cut(self):
         best_row, row_value = self.get_efficient_row_cut()
         best_column, column_value = self.get_efficient_column_cut()
         n = len(self.board)
@@ -134,7 +134,7 @@ class Board:
         if self.is_empty():
             return Polynomial(1)
 
-        dir, cut = self.get_most_efficient_cut()
+        dir, cut = self.get_efficient_cut()
         if dir == 'R' and cut is not None:
             u, d = self.cut_row(cut)
             return u.get_poly() * d.get_poly()
@@ -149,9 +149,6 @@ class Board:
 
             return Polynomial(0, 1) * e.get_poly() + s.get_poly()
 
-    def get_str_board(self):
-        return [''.join(row) for row in self.board]
-
     def __eq__(self, other):
         if isinstance(other, Board):
             return self.board == other.board
@@ -159,5 +156,8 @@ class Board:
             return self.board == [list(row) for row in other]
         return False
 
+    def __repr__(self):
+        return self.board.__repr__()
+
     def __str__(self):
-        return 'Board:\n' + '\n'.join(self.get_str_board())
+        return '\n'.join([''.join(row) for row in self.board])
