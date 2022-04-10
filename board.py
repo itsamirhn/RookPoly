@@ -6,8 +6,15 @@ from polynomial import Polynomial
 class Board:
 
     def __init__(self, board):
+        self.rotated_times = 0
         self.board = board[:]
-        self.simplify()
+
+    def flip(self):
+        self.board = [list(reversed(row)) for row in self.board]
+
+    def rotate(self):
+        self.rotated_times = (self.rotated_times + 1) % 4
+        self.board = [list(r) for r in zip(*self.board[::-1])]
 
     def rtrim(self):
         if self.is_empty():
@@ -16,18 +23,16 @@ class Board:
         mx = max([len(row) for row in self.board])
         self.board = [row + list('1' * (mx - len(row))) for row in self.board]
 
-    def ltrim(self):
-        self.board = [list(reversed(row)) for row in self.board]
-        self.rtrim()
-        self.board = [list(reversed(row)) for row in self.board]
-
     def remove_filled_rows(self):
         self.board = [row for row in self.board if len(''.join(row).rstrip('1')) > 0]
 
     def simplify(self):
-        self.rtrim()
-        self.ltrim()
-        # self.remove_filled_rows()
+        for i in range(4):
+            self.rtrim()
+            self.rotate()
+        for i in range(4):
+            self.remove_filled_rows()
+            self.rotate()
 
     def get_empty_squares(self):
         for (row, i) in enumerate(self.board):
@@ -89,7 +94,7 @@ class Board:
                 yield i
 
     def get_most_efficient_row_cut(self):
-        best_minimum_count = 0
+        best_minimum_count = None
         best_row = None
         for i in self.get_cuttable_rows():
             u, d = self.cut_row(i)
@@ -97,10 +102,10 @@ class Board:
             if best_row is None or count < best_minimum_count:
                 best_minimum_count = count
                 best_row = i
-        return best_row
+        return best_row, best_minimum_count
 
     def get_most_efficient_column_cut(self):
-        best_minimum_count = 0
+        best_minimum_count = None
         best_column = None
         for i in self.get_cuttable_columns():
             l, r = self.cut_column(i)
@@ -108,22 +113,20 @@ class Board:
             if best_column is None or count < best_minimum_count:
                 best_minimum_count = count
                 best_column = i
-        return best_column
+        return best_column, best_minimum_count
 
     def get_most_efficient_cut(self):
-        best_row = self.get_most_efficient_row_cut()
-        best_column = self.get_most_efficient_column_cut()
+        best_row, row_value = self.get_most_efficient_row_cut()
+        best_column, column_value = self.get_most_efficient_column_cut()
         n = len(self.board)
         m = len(self.board[0])
-        if best_column is not None and n <= m:
-            return 'C', best_column
-        if best_row is not None and n >= m:
+        if best_column is None:
             return 'R', best_row
-        if best_column is not None and best_row is None:
+        if best_row is None:
             return 'C', best_column
-        if best_row is not None and best_column is None:
+        if row_value < column_value:
             return 'R', best_row
-        return None, None
+        return 'C', best_column
 
     def get_poly(self):
         self.simplify()
@@ -131,10 +134,10 @@ class Board:
             return Polynomial(1)
 
         dir, cut = self.get_most_efficient_cut()
-        if dir == 'R':
+        if dir == 'R' and cut is not None:
             u, d = self.cut_row(cut)
             return u.get_poly() * d.get_poly()
-        elif dir == 'C':
+        elif dir == 'C' and cut is not None:
             l, r = self.cut_column(cut)
             return l.get_poly() * r.get_poly()
         else:
