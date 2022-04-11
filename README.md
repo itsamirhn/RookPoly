@@ -8,7 +8,7 @@ Be aware that recursion is not efficient enough, and it's using random choices. 
 Just clone the project:
 
 ```shell
-$ git clone git@github.com:itsamirhn/RookPoly.git
+$ git clone https://github.com/itsamirhn/RookPoly.git
 
 $ cd RookPoly
 ```
