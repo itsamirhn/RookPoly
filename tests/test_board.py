@@ -37,7 +37,7 @@ class TestBoard(unittest.TestCase):
             self.assertEqual(board, ['0' * i for _ in range(i)])
 
         self.board_1.simplify()
-        self.assertEqual(self.board_1, ["110", "100", "000", "001"])
+        self.assertEqual(self.board_1, ["0011", "0001", "1000"])
 
         self.board_2.simplify()
         self.assertEqual(self.board_2, ["00111", "00111", "11100", "11100", "11000"])
