@@ -1,4 +1,5 @@
 import time
+
 from rookpoly import Board
 
 
@@ -17,4 +18,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-

@@ -106,7 +106,7 @@ class Polynomial(object):
             return "0"
 
     def __sub__(self, val):
-        "Return self-val"
+        """Return self-val"""
         return self.__add__(-val)
 
     def trim(self):
