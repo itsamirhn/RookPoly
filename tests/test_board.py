@@ -28,6 +28,29 @@ class TestBoard(unittest.TestCase):
         self.assertEqual(self.board_1.m, 3)
         self.assertEqual(self.board_2.m, 5)
 
+    def test_is_empty(self):
+        # Testing if the board is identified as empty correctly
+        empty_board = Board([])
+        self.assertTrue(empty_board.is_empty())
+
+        non_empty_board = Board(["100", "000"])
+        self.assertFalse(non_empty_board.is_empty())
+
+    # Test for get method
+    def test_get(self):
+        # Testing retrieving value from the board
+        self.assertEqual(self.board_1.get(0, 0), '1')
+        self.assertEqual(self.board_1.get(1, 1), '0')
+
+    # Test for set method
+    def test_set(self):
+        # Testing setting value on the board
+        self.board_1.set(0, 0, '0')
+        self.assertEqual(self.board_1.get(0, 0), '0')
+
+        self.board_1.set(1, 1, '1')
+        self.assertEqual(self.board_1.get(1, 1), '1')
+
     def test_flip(self):
         # Testing flipping the board
         board = Board(["100", "010", "001"])

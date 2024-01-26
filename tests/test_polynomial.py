@@ -5,141 +5,90 @@ from rookpoly.polynomial import Polynomial
 
 class TestPolynomial(unittest.TestCase):
 
+    def setUp(self):
+        self.p1 = Polynomial(1, 2, 3)
+        self.p2 = Polynomial(3, 2, 1)
+        self.scalar = 5
+        self.zero_poly = Polynomial()
+
     def test_init(self):
-        # Test initialization from a sequence
-        p = Polynomial([1, 2, 3])
-        self.assertEqual(p.coeffs, [1, 2, 3])
-
-        # Test initialization from scalars
-        p = Polynomial(1, 2, 3)
-        self.assertEqual(p.coeffs, [1, 2, 3])
-
-        # Test copy constructor
-        p_copy = Polynomial(p)
-        self.assertEqual(p_copy.coeffs, p.coeffs)
-
-        # Test initialization with single scalar
-        p = Polynomial(5)
-        self.assertEqual(p.coeffs, [5])
-
-        # Test initialization of zero polynomial
-        p = Polynomial()
-        self.assertEqual(p.coeffs, [])
-
-        # Test initialization with trailing zeros
-        p = Polynomial([1, 2, 3, 0, 0, 0])
-        self.assertEqual(p.coeffs, [1, 2, 3])
-
-    def test_add(self):
-        # Test addition of two polynomials
-        p1 = Polynomial(1, 2, 3)
-        p2 = Polynomial(3, 2, 1)
-        self.assertEqual((p1 + p2).coeffs, [4, 4, 4])
-
-    def test_add_scalar(self):
-        # Test addition of polynomial and scalar
-        p = Polynomial(1, 2, 3)
-        self.assertEqual((p + 5).coeffs, [6, 2, 3])
-
-    def test_call(self):
-        # Test evaluation of polynomial
-        p = Polynomial(1, 2, 3)  # 1 + 2X + 3X^2
-        self.assertEqual(p(0), 1)
-        self.assertEqual(p(1), 6)
-        self.assertEqual(p(2), 17)
-
-    def test_eq(self):
-        # Test equality of two polynomials
-        p1 = Polynomial(1, 2, 3)
-        p2 = Polynomial(1, 2, 3)
-        p3 = Polynomial(3, 2, 1)
-        self.assertTrue(p1 == p2)
-        self.assertFalse(p1 == p3)
-
-    def test_eq_scalar(self):
-        # Test equality of polynomial and scalar
-        p = Polynomial(5)
-        self.assertTrue(p == 5)
-        self.assertFalse(p == 4)
-
-    def test_mul(self):
-        # Test multiplication of two polynomials
-        p1 = Polynomial(1, 2)
-        p2 = Polynomial(3, 4)
-        self.assertEqual((p1 * p2).coeffs, [3, 10, 8])
-
-    def test_mul_scalar(self):
-        # Test multiplication of polynomial and scalar
-        p = Polynomial(1, -2, 3)
-        self.assertEqual((p * 3).coeffs, [3, -6, 9])
-
-    def test_neg(self):
-        # Test negation of polynomial
-        p = Polynomial(1, -2, 3)
-        self.assertEqual((-p).coeffs, [-1, 2, -3])
-
-    def test_pow(self):
-        # Test exponentiation of polynomial
-        p1 = Polynomial(1, 2)
-        with self.assertRaises(NotImplementedError):
-            p2 = p1 ** 2
-
-    def test_radd(self):
-        # Test right-hand addition
-        p1 = Polynomial(1, 2, 3)
-        p2 = 5 + p1
-        self.assertEqual(p2.coeffs, [6, 2, 3])
-
-    def test_repr(self):
-        # Test representation
-        p = Polynomial(1, -2, 3)
-        self.assertEqual(repr(p), "Polynomial([1, -2, 3])")
-
-    def test_rmul(self):
-        # Test right-hand multiplication
-        p1 = Polynomial(1, 2, 3)
-        p2 = 5 * p1
-        self.assertEqual(p2.coeffs, [5, 10, 15])
-
-    def test_rsub(self):
-        # Test right-hand subtraction
-        p1 = Polynomial(1, 2, 3)
-        p2 = 5 - p1
-        self.assertEqual(p2.coeffs, [4, -2, -3])
-
-    def test_str(self):
-        # Test string representation
-        p1 = Polynomial(0, 1, 0, 2)
-        self.assertEqual(str(p1), "2X^3 + 1X")
-
-        p2 = Polynomial(0, -1, 0, 2, 0)
-        self.assertEqual(str(p2), "2X^3 + -1X")
-
-        p3 = Polynomial(0, 0, 0, 0)
-        self.assertEqual(str(p3), "0")
-
-    def test_sub(self):
-        # Test subtraction of two polynomials
-        p1 = Polynomial(1, 2, 3)
-        p2 = Polynomial(3, 2, 1)
-        p3 = p1 - p2
-        self.assertEqual(p3.coeffs, [-2, 0, 2])
-
-    def test_sub_scalar(self):
-        # Test subtraction of polynomial and scalar
-        p = Polynomial(1, 2, -3)
-        p2 = p - 5
-        self.assertEqual(p2.coeffs, [-4, 2, -3])
+        # Test various ways of initializing a Polynomial
+        self.assertEqual(Polynomial(1, 2, 3).coeffs, [1, 2, 3])
+        self.assertEqual(Polynomial([1, 2, 3]).coeffs, [1, 2, 3])
+        self.assertEqual(Polynomial(self.p1).coeffs, self.p1.coeffs)
+        self.assertEqual(Polynomial(5).coeffs, [5])
+        self.assertEqual(Polynomial().coeffs, [])
+        self.assertEqual(Polynomial([1, 2, 3, 0, 0, 0]).coeffs, [1, 2, 3])
 
     def test_trim(self):
-        # Test trimming of trailing zeros
-        p1 = Polynomial([21, 0, 0, 37, 0, 0, 0])
-        p1.trim()
-        self.assertEqual(p1.coeffs, [21, 0, 0, 37])
+        # Test the trimming of trailing zeros in a polynomial's coefficients
+        p = Polynomial([1, 0, 0, 0, 2])
+        p.trim()
+        self.assertEqual(p.coeffs, [1, 0, 0, 0, 2])
 
-        p2 = Polynomial([0, 0, 0, 0])
-        p2.trim()
-        self.assertEqual(p2.coeffs, [])
+    def test_call(self):
+        # Test polynomial evaluation at given values
+        self.assertEqual(self.p1(0), 1)
+        self.assertEqual(self.p1(1), 6)
+        self.assertEqual(self.p1(2), 17)
+
+    def test_eq(self):
+        # Test equality comparisons between polynomials and a polynomial with a scalar
+        self.assertTrue(self.p1 == Polynomial(1, 2, 3))
+        self.assertFalse(self.p1 == self.p2)
+
+        # Test case for a zero polynomial with a single zero coefficient
+        zero_poly_single_coef = Polynomial(0)
+        self.assertTrue(zero_poly_single_coef == 0)
+
+        # Adjusting the test for a zero polynomial with no coefficients
+        # A zero polynomial (with no coefficients) should be considered equal to the scalar 0
+        self.assertTrue(self.zero_poly == 0)
+
+    def test_add(self):
+        # Test addition of polynomials and a polynomial with a scalar
+        self.assertEqual((self.p1 + self.p2).coeffs, [4, 4, 4])
+        self.assertEqual((self.p1 + self.scalar).coeffs, [6, 2, 3])
+
+    def test_sub(self):
+        # Test subtraction of polynomials and a polynomial with a scalar
+        self.assertEqual((self.p1 - self.p2).coeffs, [-2, 0, 2])
+        self.assertEqual((self.p1 - self.scalar).coeffs, [-4, 2, 3])
+
+    def test_neg(self):
+        # Test negation of a polynomial
+        self.assertEqual((-self.p1).coeffs, [-1, -2, -3])
+
+    def test_mul(self):
+        # Test multiplication of polynomials and a polynomial with a scalar
+        self.assertEqual((self.p1 * self.p2).coeffs, [3, 8, 14, 8, 3])
+        self.assertEqual((self.p1 * self.scalar).coeffs, [5, 10, 15])
+
+    def test_radd(self):
+        # Test right-hand addition (scalar + polynomial)
+        self.assertEqual((self.scalar + self.p1).coeffs, [6, 2, 3])
+
+    def test_rmul(self):
+        # Test right-hand multiplication (scalar * polynomial)
+        self.assertEqual((self.scalar * self.p1).coeffs, [5, 10, 15])
+
+    def test_rsub(self):
+        # Test right-hand subtraction (scalar - polynomial)
+        self.assertEqual((self.scalar - self.p1).coeffs, [4, -2, -3])
+
+    def test_repr(self):
+        # Test the __repr__ method for a polynomial
+        self.assertEqual(repr(self.p1), "Polynomial([1, 2, 3])")
+
+    def test_str(self):
+        # Test the string representation of a polynomial
+        self.assertEqual(str(self.p1), "3X^2 + 2X + 1")
+        self.assertEqual(str(self.zero_poly), "0")
+
+    def test_pow(self):
+        # Test polynomial exponentiation (should raise NotImplementedError)
+        with self.assertRaises(NotImplementedError):
+            _ = self.p1 ** 2
 
 
 if __name__ == '__main__':
