@@ -17,7 +17,11 @@ Herman Lazarchyk, Maksim Zdobnikau
 - **Goal**: Ensure that the `Polynomial` class correctly performs mathematical operations on polynomials.
 - **Importance**: The accuracy and mathematical correctness of the `Polynomial` class's operations are essential for reliable mathematical calculations.
 
-## Testing Process
+### Application as a Whole
+- **Goal**: Ensure that application as a whole is functioning correctly and provides accurate results in a timely manner.
+- **Importance**: The accuracy and efficiency of the application are crucial for the credibility of the project.
+
+## Unit Testing Process
 ### Testing Method
 - **Unit Testing**: Utilized the `unittest` framework in Python for testing functions of both classes.
 - **Mathematical Verification**: Checked the consistency of both classes' operations with the mathematical principles of the chess polynomial.
@@ -27,8 +31,8 @@ Herman Lazarchyk, Maksim Zdobnikau
 - **Test Results**: The number of tests concluded positively and negatively, indicating the quality of the code and the effectiveness of testing.
 - **Mathematical Correctness**: Assessment of the consistency of both classes' operations with the mathematical principles of the chess polynomial, including calculation accuracy.
 
-## Conducted Tests
-### `Board` Class
+### Conducted Tests
+#### `Board` Class
 
 | Test Name                    | Description                                       | Result   |
 |------------------------------|---------------------------------------------------|----------|
@@ -54,7 +58,7 @@ Herman Lazarchyk, Maksim Zdobnikau
 | test_repr                    | Object representation (__repr__ method)           | PASS ✅   |
 | test_str                     | String representation (__str__ method)            | PASS ✅   |
 
-### `Polynomial` Class
+#### `Polynomial` Class
 
 | Test Name                    | Description                                           | Result   |
 |------------------------------|-------------------------------------------------------|----------|
@@ -73,10 +77,44 @@ Herman Lazarchyk, Maksim Zdobnikau
 | test_str                     | Test the string representation of the polynomial      | PASS ✅   |
 | test_pow                     | Raise polynomial to a power (not implemented)         | PASS ✅   |
 
+## Blackbox Testing Process
+### Testing Method
+- **Blackbox Testing**: Utilized `bash` scripts to test the application's functionality without considering its internal structure.
+- **Mathematical Verification**: Checked the consistency of application results with the mathematical principles of the chess polynomial.
+- **Time Testing**: Measured the execution time of the application for various input cases.
+
+### Metrics Used in the Testing Process
+- **Test Cases**: The number and variety of tests, measuring the comprehensiveness of tests for both correctness and time testing.
+- **Test Results**: The number of tests concluded positively and negatively, indicating the correctness and efficiency of the application.
+- **Mathematical Correctness**: Assessment of the consistency of application results with the mathematical principles of the chess polynomial, including calculation accuracy.
+- **Execution Time**: Measured the execution time of the application for various input cases.
+
+### Conducted Tests
+#### Correctness Tests
+| Test Name | Description                                 | Result   |
+|-----------|---------------------------------------------|----------|
+| 01        | 0x0 board                                   | PASS ✅   |
+| 02        | 1x1 board                                   | PASS ✅   |
+| 03        | 2x2 filled board                            | PASS ✅   |
+| 04        | 2x2 board                                   | PASS ✅   |
+| 05        | 3x3 board                                   | PASS ✅   |
+| 06        | 3x6 board                                   | PASS ✅   |
+| 07        | 4 row board with variable number of columns | PASS ✅   |
+| 08        | 4x4 board                                   | PASS ✅   |
+| 09        | 5x5 board                                   | PASS ✅   |
+| 10        | 6x6 board                                   | PASS ✅   |
+
+#### Time Tests
+| Test Name | Description                      | Result |
+|-----------|----------------------------------|--------|
+| 01        | 7x7 board                        | PASS ✅ |
+| 02        | 10x10 board                      | PASS ✅ |
+| 03        | 10x10 increased difficulty board | PASS ✅ |
+
 ## Analysis and Future Directions
 - **Consistency with Mathematical Theory**: The tests of both classes confirm their consistency with the principles of the chess polynomial, which is crucial for the credibility of the project.
 - **Development Opportunities**: Considering the implementation of additional functions and test scenarios, especially for the `Polynomial` class, may enrich the project's functionality.
 - **Recommendations**: It is recommended to conduct additional tests in more complex scenarios to fully utilize the potential of both classes in a mathematical context.
 
 ## Summary
-The unit tests of the `Board` and `Polynomial` classes have successfully confirmed their correctness and effectiveness in the context of the RookPoly project. Both classes meet the mathematical requirements associated with the chess polynomial and provide a solid foundation for further research and development in the field of discrete mathematics. The test results provide strong foundations for further work on the project.
+The unit tests of the `Board` and `Polynomial` classes have successfully confirmed their correctness and effectiveness in the context of the RookPoly project. Both classes meet the mathematical requirements associated with the chess polynomial. The blackbox tests of the application as a whole have confirmed its correctness and efficiency in various scenarios. The application provides accurate results in a timely manner, which is crucial for the credibility of the project. The project provides a solid foundation for further research and development in the field of discrete mathematics. The test results provide strong foundations for further work on the project.
