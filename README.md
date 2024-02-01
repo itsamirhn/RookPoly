@@ -42,3 +42,6 @@ Sample output for this example:
 ```
 24X^5 + 164X^4 + 226X^3 + 104X^2 + 18X + 1
 ```
+
+## Tests
+Tests, instructions for running them and test report can be found in [tests](tests) folder.
